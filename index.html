@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Anshika Gupta | Fashion Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--dark:#0f0f0f;
+--light:#f5f2ed;
+--accent:#c9b49a;
+--text-light:#fff;
+--text-dark:#111;
+}
+body{
+font-family:'Montserrat',sans-serif;
+
+overflow-x:hidden;
+scroll-behavior:smooth;
+transition:background 0.4s,color 0.4s;
+}
+a{text-decoration:none;color:inherit;}
+
+/* HEADER */
+header{
+position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;
+padding:20px 80px;background:rgba(15,15,15,0.95);z-index:999;transition:0.4s;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.logo{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;letter-spacing:2px;color:var(--accent);}
+nav ul{display:flex;gap:50px;list-style:none;}
+nav a{font-size:1.1rem;font-weight:500;position:relative;text-transform:uppercase;letter-spacing:1px;transition:.3s;}
+nav a::after{
+content:"";position:absolute;width:0;height:2px;bottom:-8px;left:0;background:var(--accent);transition:0.4s;
+}
+nav a:hover::after{width:100%;}
+.theme-toggle{
+cursor:pointer;
+background:var(--accent);
+padding:8px 18px;
+border-radius:20px;
+font-size:0.9rem;
+color:#111;
+margin-left:30px;
+font-weight:600;
+}
+
+/* HERO */
+.hero{
+display:flex;align-items:center;justify-content:center;flex-direction:column;height:100vh;text-align:center;background:url('assets/hero-bg.jpg') center/cover no-repeat;
+position:relative;color:var(--text-light);
+}
+.hero::after{
+content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);
+}
+.hero-content{position:relative;z-index:2;}
+.hero h1{
+font-family:'Playfair Display',serif;font-size:4rem;letter-spacing:3px;margin-bottom:20px;text-transform:uppercase;
+}
+.hero p{font-size:1.3rem;color:#ddd;margin-bottom:40px;}
+.hero .btn{
+padding:14px 40px;border:2px solid var(--accent);color:#fff;font-weight:bold;border-radius:40px;
+background:transparent;transition:.4s;font-size:1rem;text-transform:uppercase;letter-spacing:1px;
+}
+.hero .btn:hover{background:var(--accent);color:#111;}
+
+/* ABOUT */
+#about{
+display:flex;align-items:center;justify-content:center;gap:60px;padding:100px 8%;
+background:var(--light);color:var(--text-dark);
+}
+#about img{
+width:300px;height:300px;object-fit:cover;border-radius:50%;box-shadow:0 10px 30px rgba(0,0,0,0.2);
+border:8px solid var(--accent);
+transition:transform 0.4s;
+}
+#about img:hover{transform:scale(1.05);}
+#about .text{max-width:600px;}
+#about h2{
+font-family:'Playfair Display',serif;font-size:3rem;margin-bottom:20px;color:var(--dark);
+}
+#about p{font-size:1.2rem;line-height:1.8;margin-bottom:15px;color:#444;}
+#about strong{color:var(--accent);}
+
+/* PORTFOLIO */
+section h2{
+font-size:3rem;font-family:'Playfair Display',serif;margin-bottom:40px;text-align:center;letter-spacing:1px;color:var(--accent);
+}
+#portfolio{background:var(--dark);padding:100px 8%;}
+.gallery-grid{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;margin-top:50px;
+}
+.gallery-grid .item{position:relative;overflow:hidden;border-radius:10px;cursor:pointer;}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease;}
+.gallery-grid .item:hover img{transform:scale(1.08);}
+.gallery-grid .overlay{
+position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);
+opacity:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;font-weight:bold;transition:.4s;
+}
+.gallery-grid .item:hover .overlay{opacity:1;}
+
+/* CONTACT */
+#contact{padding:100px 8%;background:var(--light);color:var(--dark);text-align:center;}
+#contact form{display:flex;flex-direction:column;max-width:400px;margin:0 auto;}
+#contact input,#contact textarea{
+margin-bottom:15px;padding:14px;border:1px solid #aaa;border-radius:6px;font-size:1rem;
+}
+#contact button{
+padding:14px;border-radius:40px;border:2px solid var(--accent);background:transparent;color:var(--dark);
+font-weight:bold;transition:.3s;text-transform:uppercase;
+}
+#contact button:hover{background:var(--accent);color:#111;}
+.socials a{color:var(--dark);margin:0 10px;font-weight:bold;}
+.socials a:hover{color:var(--accent);}
+
+/* Footer */
+footer{text-align:center;padding:30px;background:var(--dark);font-size:14px;color:#aaa;}
+
+/* Lightbox */
+.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);justify-content:center;align-items:center;z-index:999;}
+.lightbox img{max-width:90%;max-height:80%;border-radius:10px;}
+.lightbox span{position:absolute;top:20px;right:30px;font-size:40px;color:#fff;cursor:pointer;font-weight:bold;}
+.lightbox.show{display:flex;}
+
+
+.dark-mode header{background:#fff!important;color:#111!important;}
+.dark-mode nav a::after{background:#111!important;}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">Anshika Gupta</div>
+<nav>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#portfolio">Portfolio</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+<div class="theme-toggle" id="theme-toggle">Dark Mode</div>
+</header>
+
+<section id="home" class="hero">
+<div class="hero-content">
+<h1>Elevate Your Brand</h1>
+<p>with style & elegance</p>
+<a href="#portfolio" class="btn">Explore My Work</a>
+</div>
+</section>
+
+<section id="about">
+<img src="assets/profile.jpg" alt="Profile">
+<div class="text">
+<h2>Hi, I'm Anshika</h2>
+<p>I’m your ultimate companion to make a lasting impression in the digital realm. For me, fashion isn’t just about trends—it’s about creating emotions you can wear.</p>
+<p>I’ve collaborated with <strong>luxury brands</strong> and worked with <strong>Manish Malhotra</strong>, learning that perfection lies in the details.</p>
+</div>
+</section>
+
+<section id="portfolio">
+<h2>My Collections</h2>
+<div class="gallery-grid">
+<div class="item"><img src="assets/design1.jpg"><div class="overlay">Collection 1</div></div>
+<div class="item"><img src="assets/design2.jpg"><div class="overlay">Collection 2</div></div>
+<div class="item"><img src="assets/design3.jpg"><div class="overlay">Collection 3</div></div>
+<div class="item"><img src="assets/design4.jpg"><div class="overlay">Collection 4</div></div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact Me</h2>
+<form id="contact-form">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<textarea name="message" placeholder="Your Message" required></textarea>
+<button type="submit">Send Message</button>
+</form>
+<div class="socials" style="margin-top:20px;">
+Follow me:
+<a href="#">Instagram</a> | <a href="#">Pinterest</a> | <a href="#">LinkedIn</a>
+</div>
+</section>
+
+<footer>&copy; 2025 Anshika Gupta. All rights reserved.</footer>
+
+<div class="lightbox" id="lightbox"><span>&times;</span><img src="" alt="Preview"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+emailjs.init("chfP-CF7jDNHLrwu2"); // Your EmailJS Public Key
+
+document.getElementById("contact-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    const params = {
+        from_name: this.name.value,
+        from_email: this.email.value,
+        email: this.email.value,
+        message: this.message.value
+    };
+
+    Swal.fire({
+        title: 'Sending...',
+        text: 'Please wait while we send your message.',
+        allowOutsideClick: false,
+        didOpen: () => { Swal.showLoading(); }
+    });
+
+    emailjs.send("service_4fa1xgv","template_2aot0cq", params)
+    .then(function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Message Sent!',
+            text: 'Thank you for contacting me. I will reply soon.',
+            confirmButtonColor: '#c9b49a'
+        });
+        document.getElementById("contact-form").reset();
+    }, function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed!',
+            text: 'Failed to send message. Please try again.',
+            confirmButtonColor: '#c9b49a'
+        });
+    });
+});
+
+
+// Smooth Hover Scroll
+document.querySelectorAll('nav a').forEach(link=>{
+link.addEventListener('mouseenter',()=>{
+const id=link.getAttribute('href').substring(1);
+document.getElementById(id).scrollIntoView({behavior:'smooth'});
+});
+});
+
+// Lightbox
+const galleryImages=document.querySelectorAll('.gallery-grid img');
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=lightbox.querySelector('img');
+const closeBtn=lightbox.querySelector('span');
+galleryImages.forEach(img=>{
+img.addEventListener('click',()=>{
+lightbox.classList.add('show');
+lightboxImg.src=img.src;
+});
+});
+closeBtn.addEventListener('click',()=>lightbox.classList.remove('show'));
+
+// Animations
+gsap.registerPlugin(ScrollTrigger);
+gsap.from(".hero h1",{opacity:0,y:60,duration:1});
+gsap.from(".hero p",{opacity:0,y:50,duration:1,delay:0.3});
+gsap.from(".hero .btn",{opacity:0,scale:0.8,duration:1,delay:0.6});
+gsap.from("#about img",{scrollTrigger:{trigger:"#about",start:"top 80%"},opacity:0,x:-100,duration:1});
+gsap.from("#about .text",{scrollTrigger:{trigger:"#about",start:"top 80%"},opacity:0,x:100,duration:1});
+gsap.utils.toArray(".gallery-grid .item").forEach((item,i)=>{
+gsap.from(item,{scrollTrigger:{trigger:item,start:"top 90%"},opacity:0,y:50,duration:0.8,delay:i*0.1});
+});
+gsap.from("#contact form",{scrollTrigger:{trigger:"#contact",start:"top 85%"},opacity:0,y:60,duration:1});
+</script>
+</body>
+</html>
